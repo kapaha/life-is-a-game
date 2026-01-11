@@ -1,14 +1,11 @@
 <script setup></script>
 
 <template>
-    <h1>You did it!</h1>
-    <p>
-        Visit
-        <a href="https://vuejs.org/" target="_blank" rel="noopener"
-            >vuejs.org</a
-        >
-        to read the documentation
-    </p>
+    <div class="flex min-h-dvh flex-col">
+        <header class="bg-zinc-900 px-8 py-4">Life is a Game</header>
+        <main class="flex-1"></main>
+        <footer class="bg-zinc-900 px-8 py-4">Footer</footer>
+    </div>
 </template>
 
 <style scoped></style>
