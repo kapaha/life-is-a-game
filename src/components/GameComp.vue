@@ -1,9 +1,17 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 
 const tasks = ref([]);
 const taskName = ref('');
-const currentXp = ref(0);
+
+const totalXp = ref(0);
+const currentLevel = ref(1);
+
+const currentLevelXp = computed({
+    get() {
+        return totalXp.value % 100;
+    }
+});
 
 function handleTaskSubmit() {
     const newTask = {
@@ -20,7 +28,12 @@ function handleTaskSubmit() {
 function handleTaskComplete(id) {
     tasks.value = tasks.value.map((task) => {
         if (task.id === id && !task.isComplete) {
-            currentXp.value += 10;
+            totalXp.value += 10;
+
+            if (totalXp.value >= currentLevel.value * 100) {
+                currentLevel.value += 1;
+            }
+
             return { ...task, isComplete: true };
         }
 
@@ -32,7 +45,8 @@ function handleTaskComplete(id) {
 <template>
     <header class="flex items-center justify-between bg-zinc-900 px-8 py-4">
         <h1>Life is a Game</h1>
-        <p>XP: {{ currentXp }}</p>
+        <p>Level {{ currentLevel }} · {{ currentLevelXp }} / 100 XP</p>
+        <p>Total XP: {{ totalXp }}</p>
     </header>
     <main class="flex-1 px-4">
         <div
