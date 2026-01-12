@@ -43,12 +43,17 @@ function handleTaskComplete(id) {
 </script>
 
 <template>
-    <header class="flex items-center justify-between bg-zinc-900 px-8 py-4">
+    <header class="bg-zinc-900 px-8 py-4">
         <h1>Life is a Game</h1>
-        <p>Level {{ currentLevel }} · {{ currentLevelXp }} / 100 XP</p>
-        <p>Total XP: {{ totalXp }}</p>
     </header>
     <main class="flex-1 px-4">
+        <div
+            class="container mx-auto my-8 max-w-125 space-y-4 border-4 border-zinc-900 bg-zinc-600 p-4"
+        >
+            <h2 class="text-center text-3xl">Character</h2>
+            <p class="text-center">Level {{ currentLevel }}</p>
+            <p class="text-center">{{ currentLevelXp }} / 100 XP</p>
+        </div>
         <div
             class="container mx-auto my-8 max-w-125 space-y-4 border-4 border-zinc-900 bg-zinc-600 p-4"
         >
