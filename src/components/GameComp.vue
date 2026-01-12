@@ -6,13 +6,24 @@ const taskName = ref('');
 
 function handleTaskSubmit() {
     const newTask = {
+        id: self.crypto.randomUUID(),
         name: taskName.value,
-        id: self.crypto.randomUUID()
+        isComplete: false
     };
 
     tasks.value.push(newTask);
 
     taskName.value = '';
+}
+
+function handleTaskComplete(id) {
+    tasks.value = tasks.value.map((task) => {
+        if (task.id === id) {
+            return { ...task, isComplete: true };
+        }
+
+        return task;
+    });
 }
 </script>
 
@@ -25,9 +36,17 @@ function handleTaskSubmit() {
             <div
                 v-for="task in tasks"
                 v-bind:key="task.id"
-                class="flex items-center justify-between bg-zinc-500 p-2"
+                class="flex items-center justify-between bg-zinc-500 p-2 transition-opacity"
+                :class="{ 'opacity-50': task.isComplete }"
             >
                 <p class="capitalize">{{ task.name }}</p>
+
+                <button
+                    class="bg-green-500 px-4 py-2 leading-none"
+                    @click="handleTaskComplete(task.id)"
+                >
+                    Complete
+                </button>
             </div>
         </div>
         <form @submit.prevent="handleTaskSubmit" class="flex flex-col gap-2">
