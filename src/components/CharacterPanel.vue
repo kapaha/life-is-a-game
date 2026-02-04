@@ -9,7 +9,9 @@ let levelUpTimeout = null;
 
 watch(currentLevel, () => {
     clearTimeout(levelUpTimeout);
+
     showLevelUp.value = true;
+
     levelUpTimeout = setTimeout(() => {
         showLevelUp.value = false;
     }, 1500);
