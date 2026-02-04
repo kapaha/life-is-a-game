@@ -131,7 +131,7 @@ function handleTaskComplete(id) {
                         v-model.trim="taskName"
                         id="name"
                         type="text"
-                        class="bg-white px-2 py-1"
+                        class="bg-white px-2 py-1 text-black"
                     />
                 </div>
                 <div class="flex gap-2">
