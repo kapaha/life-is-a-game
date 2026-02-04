@@ -1,10 +1,13 @@
 <script setup>
 import { ref, computed, watch } from 'vue';
+import DebugPanel from './DebugPanel.vue';
 
 const XP_PER_LEVEL = 100;
 const XP_PER_TASK = 10;
 
 const STORAGE_KEY = 'life-is-a-game';
+
+const isDev = import.meta.env.DEV;
 
 let saved = null;
 try {
@@ -63,14 +66,18 @@ function handleTaskSubmit() {
     taskName.value = '';
 }
 
+function AddXp(amount) {
+    totalXp.value += amount;
+
+    if (totalXp.value >= currentLevel.value * XP_PER_LEVEL) {
+        currentLevel.value += 1;
+    }
+}
+
 function handleTaskComplete(id) {
     tasks.value = tasks.value.map((task) => {
         if (task.id === id && !task.isComplete) {
-            totalXp.value += XP_PER_TASK;
-
-            if (totalXp.value >= currentLevel.value * XP_PER_LEVEL) {
-                currentLevel.value += 1;
-            }
+            AddXp(XP_PER_TASK);
 
             return { ...task, isComplete: true };
         }
@@ -93,7 +100,9 @@ function handleTaskComplete(id) {
             <p v-if="showLevelUp" class="text-center text-sm text-green-400">
                 Level up!
             </p>
-            <p class="text-center">{{ currentLevelXp }} / {{ XP_PER_LEVEL }} XP</p>
+            <p class="text-center">
+                {{ currentLevelXp }} / {{ XP_PER_LEVEL }} XP
+            </p>
             <div class="h-4 w-full border-2 border-zinc-900 bg-zinc-800">
                 <div
                     class="h-full bg-green-500"
@@ -145,5 +154,6 @@ function handleTaskComplete(id) {
             </form>
         </div>
     </main>
+    <DebugPanel v-if="isDev" @add-xp="AddXp" />
     <footer class="bg-zinc-900 px-8 py-4 text-transparent">Footer</footer>
 </template>
