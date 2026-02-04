@@ -74,6 +74,12 @@ function AddXp(amount) {
     }
 }
 
+function reset() {
+    tasks.value = [];
+    totalXp.value = 0;
+    currentLevel.value = 1;
+}
+
 function handleTaskComplete(id) {
     tasks.value = tasks.value.map((task) => {
         if (task.id === id && !task.isComplete) {
@@ -154,6 +160,6 @@ function handleTaskComplete(id) {
             </form>
         </div>
     </main>
-    <DebugPanel v-if="isDev" @add-xp="AddXp" />
+    <DebugPanel v-if="isDev" @add-xp="AddXp" @reset="reset" />
     <footer class="bg-zinc-900 px-8 py-4 text-transparent">Footer</footer>
 </template>
