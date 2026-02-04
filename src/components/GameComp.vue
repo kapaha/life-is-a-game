@@ -53,6 +53,12 @@ function handleTaskComplete(id) {
             <h2 class="text-center text-3xl">Character</h2>
             <p class="text-center">Level {{ currentLevel }}</p>
             <p class="text-center">{{ currentLevelXp }} / 100 XP</p>
+            <div class="h-4 w-full border-2 border-zinc-900 bg-zinc-800">
+                <div
+                    class="h-full bg-green-500"
+                    :style="{ width: currentLevelXp + '%' }"
+                ></div>
+            </div>
         </div>
         <div
             class="container mx-auto my-8 max-w-125 space-y-4 border-4 border-zinc-900 bg-zinc-600 p-4 text-white"
