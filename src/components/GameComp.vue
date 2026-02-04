@@ -1,6 +1,9 @@
 <script setup>
 import { ref, computed, watch } from 'vue';
 
+const XP_PER_LEVEL = 100;
+const XP_PER_TASK = 10;
+
 const STORAGE_KEY = 'life-is-a-game';
 
 let saved = null;
@@ -33,7 +36,7 @@ watch(
 
 const currentLevelXp = computed({
     get() {
-        return totalXp.value % 100;
+        return totalXp.value % XP_PER_LEVEL;
     }
 });
 
@@ -63,9 +66,9 @@ function handleTaskSubmit() {
 function handleTaskComplete(id) {
     tasks.value = tasks.value.map((task) => {
         if (task.id === id && !task.isComplete) {
-            totalXp.value += 10;
+            totalXp.value += XP_PER_TASK;
 
-            if (totalXp.value >= currentLevel.value * 100) {
+            if (totalXp.value >= currentLevel.value * XP_PER_LEVEL) {
                 currentLevel.value += 1;
             }
 
@@ -90,7 +93,7 @@ function handleTaskComplete(id) {
             <p v-if="showLevelUp" class="text-center text-sm text-green-400">
                 Level up!
             </p>
-            <p class="text-center">{{ currentLevelXp }} / 100 XP</p>
+            <p class="text-center">{{ currentLevelXp }} / {{ XP_PER_LEVEL }} XP</p>
             <div class="h-4 w-full border-2 border-zinc-900 bg-zinc-800">
                 <div
                     class="h-full bg-green-500"
