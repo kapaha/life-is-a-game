@@ -49,7 +49,11 @@ function handleSubmit() {
                 />
             </div>
             <div class="flex gap-2">
-                <button class="w-full bg-green-500 px-4 py-2" type="submit">
+                <button
+                    class="w-full bg-green-500 px-4 py-2 disabled:opacity-50"
+                    type="submit"
+                    :disabled="taskName.length === 0"
+                >
                     Add Task
                 </button>
             </div>
