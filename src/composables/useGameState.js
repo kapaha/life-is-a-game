@@ -55,24 +55,6 @@ function completeTask(id) {
     });
 }
 
-function uncompleteTask(id) {
-    tasks.value = tasks.value.map((task) => {
-        if (task.id === id && task.isComplete) {
-            totalXp.value = Math.max(0, totalXp.value - XP_PER_TASK);
-
-            while (
-                currentLevel.value > 1 &&
-                totalXp.value < (currentLevel.value - 1) * XP_PER_LEVEL
-            ) {
-                currentLevel.value -= 1;
-            }
-
-            return { ...task, isComplete: false };
-        }
-        return task;
-    });
-}
-
 function reset() {
     tasks.value = [];
     totalXp.value = 0;
@@ -90,7 +72,6 @@ export function useGameState() {
         addXp,
         addTask,
         completeTask,
-        uncompleteTask,
         reset
     };
 }
