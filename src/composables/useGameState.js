@@ -1,9 +1,5 @@
 import { ref, computed, watch } from 'vue';
-
-const XP_PER_LEVEL = 100;
-const XP_PER_TASK = 10;
-
-const STORAGE_KEY = 'life-is-a-game';
+import { XP_PER_LEVEL, XP_PER_TASK, STORAGE_KEY } from '@/config/game';
 
 let saved = null;
 try {
