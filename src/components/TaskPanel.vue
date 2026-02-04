@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 import { useGameState } from '@/composables/useGameState';
 
-const { tasks, addTask, completeTask } = useGameState();
+const { tasks, addTask, completeTask, uncompleteTask } = useGameState();
 
 const taskName = ref('');
 
@@ -24,17 +24,23 @@ function handleSubmit() {
                 v-for="task in tasks"
                 :key="task.id"
                 class="flex items-center justify-between bg-zinc-500 p-2 transition-opacity"
-                :class="{
-                    'pointer-events-none opacity-50': task.isComplete
-                }"
+                :class="{ 'opacity-50': task.isComplete }"
             >
                 <p class="capitalize">{{ task.name }}</p>
 
                 <button
+                    v-if="!task.isComplete"
                     class="bg-green-500 px-4 py-2 leading-none"
                     @click="completeTask(task.id)"
                 >
                     Complete
+                </button>
+                <button
+                    v-else
+                    class="bg-zinc-400 px-4 py-2 leading-none"
+                    @click="uncompleteTask(task.id)"
+                >
+                    Undo
                 </button>
             </div>
         </div>
