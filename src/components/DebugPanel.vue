@@ -1,7 +1,8 @@
 <script setup>
 import { ref } from 'vue';
+import { useGameState } from '@/composables/useGameState';
 
-const emit = defineEmits(['add-xp', 'reset']);
+const { addXp, reset } = useGameState();
 
 const xpAmount = ref(50);
 </script>
@@ -22,7 +23,7 @@ const xpAmount = ref(50);
                 />
                 <button
                     class="bg-yellow-500 px-3 py-1 text-sm text-white"
-                    @click="emit('add-xp', xpAmount)"
+                    @click="addXp(xpAmount)"
                 >
                     Add XP
                 </button>
@@ -32,7 +33,7 @@ const xpAmount = ref(50);
                 <p class="text-white">Reset</p>
                 <button
                     class="bg-red-500 px-3 py-1 text-sm text-white"
-                    @click="emit('reset')"
+                    @click="reset()"
                 >
                     Reset
                 </button>
