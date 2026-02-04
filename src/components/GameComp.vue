@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 
 const tasks = ref([]);
 const taskName = ref('');
@@ -11,6 +11,17 @@ const currentLevelXp = computed({
     get() {
         return totalXp.value % 100;
     }
+});
+
+const showLevelUp = ref(false);
+let levelUpTimeout = null;
+
+watch(currentLevel, () => {
+    clearTimeout(levelUpTimeout);
+    showLevelUp.value = true;
+    levelUpTimeout = setTimeout(() => {
+        showLevelUp.value = false;
+    }, 1500);
 });
 
 function handleTaskSubmit() {
@@ -52,6 +63,9 @@ function handleTaskComplete(id) {
         >
             <h2 class="text-center text-3xl">Character</h2>
             <p class="text-center">Level {{ currentLevel }}</p>
+            <p v-if="showLevelUp" class="text-center text-sm text-green-400">
+                Level up!
+            </p>
             <p class="text-center">{{ currentLevelXp }} / 100 XP</p>
             <div class="h-4 w-full border-2 border-zinc-900 bg-zinc-800">
                 <div
