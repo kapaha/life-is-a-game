@@ -1,11 +1,5 @@
 @import 'tailwindcss';
 
 body {
-    @apply bg-zinc-800 text-white;
-}
-
-input,
-select,
-option {
-    @apply text-black;
+    @apply bg-zinc-800;
 }
