@@ -1,11 +1,35 @@
 <script setup>
 import { ref, computed, watch } from 'vue';
 
-const tasks = ref([]);
+const STORAGE_KEY = 'life-is-a-game';
+
+let saved = null;
+try {
+    saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+} catch {
+    // ignore corrupt data
+}
+
+const tasks = ref(saved?.tasks ?? []);
 const taskName = ref('');
 
-const totalXp = ref(0);
-const currentLevel = ref(1);
+const totalXp = ref(saved?.totalXp ?? 0);
+const currentLevel = ref(saved?.currentLevel ?? 1);
+
+watch(
+    [tasks, totalXp, currentLevel],
+    () => {
+        localStorage.setItem(
+            STORAGE_KEY,
+            JSON.stringify({
+                tasks: tasks.value,
+                totalXp: totalXp.value,
+                currentLevel: currentLevel.value
+            })
+        );
+    },
+    { deep: true }
+);
 
 const currentLevelXp = computed({
     get() {
